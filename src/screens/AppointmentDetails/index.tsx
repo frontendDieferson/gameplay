@@ -73,10 +73,12 @@ export function AppointmentDetails() {
           )}
           ItemSeparatorComponent={() => <ListDivider />}
           style={styles.members}
-
         />
+
          <View style={styles.footer}>
-        <ButtonIcon title='Entrar na Partida'/>
+            <ButtonIcon 
+            title='Entrar na Partida'
+            activeOpacity={0.7}/>
         </View>
        </Background>
     )

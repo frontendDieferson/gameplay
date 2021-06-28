@@ -19,7 +19,7 @@ export function ButtonIcon({ title, ...rest } : Props) {
             </View>
 
             <Text style={styles.title}>
-                Entrar com Discord
+               {title}
             </Text>
         </RectButton>
     )
