@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: 'center',
 
+
     },
     iconWrapper: {
         width: 56,

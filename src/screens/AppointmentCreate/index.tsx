@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RectButton } from 'react-native-gesture-handler'
-import { Text, View } from 'react-native';
+import { Text, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 
@@ -13,6 +13,7 @@ import { SmallInput } from '../../components/SmallInput';
 import { GuildIcon } from '../../components/GuildIcon';
 import { TextArea } from '../../components/TextArea';
 import { Header } from '../../components/Header';
+import { Button } from '../../components/Button';
 
 
 
@@ -20,10 +21,16 @@ import { Header } from '../../components/Header';
 export function AppointmentCreate() {
   const [ category, setCategory ] = useState('');
     return (
+      <KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height' }
+      style={styles.container}>
+
+        <ScrollView>
         <Background>
             <Header 
             title='Agendar Partida'
         />
+       
         <Text style={[
           styles.label, 
           { marginLeft: 24, marginTop: 36, marginBottom: 18  }]}
@@ -104,8 +111,15 @@ export function AppointmentCreate() {
             numberOfLines={5}
             autoCorrect={false}
           />
-        </View>
 
+          <View style={styles.footer}>
+              <Button 
+              title='Agendar'/>
+          </View>
+        </View>
+       
        </Background>
+       </ScrollView>
+       </KeyboardAvoidingView>
     )
 }
