@@ -1,25 +1,45 @@
 import React, { useState } from 'react';
 import { RectButton } from 'react-native-gesture-handler'
-import { Text, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { 
+  Text, 
+  View, 
+  ScrollView, 
+  KeyboardAvoidingView, 
+  Platform ,
+  } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-
-
 import { theme } from '../../global/styles/theme';
 import { styles } from './styles';
 
 import { CategorySelect } from '../../components/CategorySelect';
 import { Background } from '../../components/Background';
+import { ModalView } from '../../components/ModalView';
 import { SmallInput } from '../../components/SmallInput';
 import { GuildIcon } from '../../components/GuildIcon';
 import { TextArea } from '../../components/TextArea';
+import { GuildProps } from '../../components/Guild';
 import { Header } from '../../components/Header';
 import { Button } from '../../components/Button';
-
+import { Guilds } from '../Guilds';
 
 
 
 export function AppointmentCreate() {
   const [ category, setCategory ] = useState('');
+  const [openGuildsModal, setopenGuildsModal] = useState(false);
+  const [guild, setGuild] = useState<GuildProps>({} as GuildProps);
+
+  function handleOpenGuilds() {
+    setopenGuildsModal(true);
+
+  }
+
+  function handleGuildSelect(guildSelect: GuildProps) {
+    setGuild(guildSelect);
+    setopenGuildsModal(false);
+  }
+
+
     return (
       <KeyboardAvoidingView 
       behavior={Platform.OS === 'ios' ? 'padding' : 'height' }
@@ -45,16 +65,16 @@ export function AppointmentCreate() {
         />
 
         <View style={styles.form}>
-          <RectButton>
+          <RectButton onPress={handleOpenGuilds}>
             <View style={styles.select}>
               {
-               /* <View style={styles.image} />*/
-                < GuildIcon />
+               guild.icon ? < GuildIcon /> : <View style={styles.image} />
+                
               }
 
               <View style={styles.selectBody}>
                 <Text style={styles.label}>
-                  Selecione um Servidor
+                  {guild.name ? guild.name : 'Selecione um Servidor'}
                   </Text>                 
               </View>
                   <Feather
@@ -118,8 +138,12 @@ export function AppointmentCreate() {
           </View>
         </View>
        
-       </Background>
-       </ScrollView>
-       </KeyboardAvoidingView>
+      </Background>
+    </ScrollView>
+
+    <ModalView visible={openGuildsModal}>
+      <Guilds handleGuildSelect={handleGuildSelect}/>
+    </ModalView>
+  </KeyboardAvoidingView>
     )
 }
